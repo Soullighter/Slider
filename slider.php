@@ -58,7 +58,19 @@ get_header(); ?>
                   <img id="mainImage" src="" alt="Galerija slika">
                 </div>
                 <div class="thumbnails">
-                  <!-- Thumbnail-ovi će biti dodati dinamički putem JavaScript-a -->
+                   <?php
+                    // Vars
+                    $images = get_field('gallery');
+                    $size = 'full'; // (thumbnail, medium, large, full or custom size)
+        
+                    if( $images ): ?>
+                      <?php foreach( $images as $image_id ): ?>
+                      
+                        <?php echo wp_get_attachment_image( $image_id, $size ); ?>
+                      
+                      <?php endforeach; ?>
+                    <?php endif; ?>
+        
                 </div>
                 <div class="arrows">
                   <div class="arrow left">&lt;</div>
