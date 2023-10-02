@@ -46,8 +46,28 @@ get_header(); ?>
             <div class="entry-content">
               <?php the_content(); ?>
             </div>
-            <button class="modal-button click-me btn-secondary" data-post-id="<?php the_ID(); ?>">Vidi detalje</button>
+            <button class="modal-button click-me btn-secondary" data-post-id="<?php the_ID(); ?>">Vidi galeriju</button>
           </div>
+
+          <!-- modal -->
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span> <!-- Dugme za zatvaranje modala -->
+              <div class="modal-gallery"> <!-- Ovde će biti prikazana galerija slika -->
+                <div class="main-image">
+                  <img id="mainImage" src="" alt="Galerija slika">
+                </div>
+                <div class="thumbnails">
+                  <!-- Thumbnail-ovi će biti dodati dinamički putem JavaScript-a -->
+                </div>
+                <div class="arrows">
+                  <div class="arrow left">&lt;</div>
+                  <div class="arrow right">&gt;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
         </article> <!-- END of Article-->
       <?php
@@ -63,5 +83,4 @@ get_header(); ?>
   </main>
 </div>
 
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

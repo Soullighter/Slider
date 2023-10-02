@@ -667,3 +667,26 @@ function enqueue_custom_js()
 add_action('wp_enqueue_scripts', 'register_custom_js');
 add_action('wp_enqueue_scripts', 'enqueue_custom_js');
 
+// Funkcija za dohvatanje galerije slika putem AJAX-a
+function get_gallery_images()
+{
+	$post_id = $_GET['post_id'];
+
+	// Dohvati slike iz ACF polja 'extended_gallery' za određeni post
+	$images = get_field('extended_gallery', $post_id);
+
+	// Pripremi niz slika za slanje kao odgovor
+	$prepared_images = array();
+	foreach ($images as $image) {
+		$prepared_images[] = array('url' => $image['url']);
+	}
+
+	// Vrati JSON odgovor
+	wp_send_json_success(array('images' => $prepared_images));
+}
+
+// Hook za registraciju funkcije za obradu AJAX zahteva
+add_action('wp_ajax_get_gallery_images', 'get_gallery_images');
+add_action('wp_ajax_nopriv_get_gallery_images', 'get_gallery_images');
+
+

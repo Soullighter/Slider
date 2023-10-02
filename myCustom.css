@@ -51,3 +51,100 @@ body {
   background-color: #fff !important;
   color: #122620 !important;
 }
+
+
+
+/****** Modal *****/
+/* Stilizacija modala */
+.modal {
+  display: none;
+  /* Modal je inicijalno skriven */
+  position: fixed;
+  /* Fiksirana pozicija */
+  z-index: 1;
+  /* Postavi modal iznad svega ostalog */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /* Omogući skrolovanje kroz sadržaj modala ako je potrebno */
+  background-color: rgb(0, 0, 0);
+  /* Tamna pozadina */
+  background-color: rgba(0, 0, 0, 0.9);
+  /* Tamna pozadina sa prozirnošću */
+}
+
+/* Stilizacija sadržaja modala */
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  /* Centralizuj modal na ekranu */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* Stilizacija dugmeta za zatvaranje */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Stilizacija galerije slika unutar modala */
+.modal-gallery img {
+  width: 100%;
+  /* Slike popunjavaju širinu modala */
+  margin-bottom: 10px;
+}
+
+/* Stilizacija za modal i galeriju slika */
+.modal .modal-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-image img {
+  width: 74vw;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.thumbnails {
+  display: flex;
+  padding: 20px;
+}
+
+.thumbnail {
+  margin: 0 10px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.thumbnail.active {
+  opacity: 1;
+}
+
+.arrows {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.arrow {
+  font-size: 24px;
+  margin: 0 10px;
+  cursor: pointer;
+}
