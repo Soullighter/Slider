@@ -651,3 +651,19 @@ if ( ! function_exists( 'wp_get_list_item_separator' ) ) :
 		return __( ', ', 'twentytwentyone' );
 	}
 endif;
+
+// Registracija JS fajla
+function register_custom_js()
+{
+	wp_register_script('custom-js', get_template_directory_uri() . '/custom.js', array('jquery'), '1.0', true);
+}
+
+// Enqueueovanje JS fajla
+function enqueue_custom_js()
+{
+	wp_enqueue_script('custom-js');
+}
+
+add_action('wp_enqueue_scripts', 'register_custom_js');
+add_action('wp_enqueue_scripts', 'enqueue_custom_js');
+
