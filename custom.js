@@ -55,54 +55,36 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // AJAX zahtev za dohvatanje slika iz ACF polja 'extended-gallery'
-  async function getGalleryImages(postId) {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open(
-        "GET",
-        `/wp-admin/admin-ajax.php?action=get_gallery_images&post_id=${postId}`,
-        true
-      );
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          const response = JSON.parse(xhr.responseText);
-          if (response.success) {
-            const imagesData = response.data.images;
-            if (
-              imagesData &&
-              Array.isArray(imagesData) &&
-              imagesData.length > 0 &&
-              imagesData[0].url
-            ) {
-              resolve(imagesData);
-            } else {
-              reject("Greška: Neispravni podaci slika iz ACF polja.");
-            }
-          } else {
-            reject("Greška prilikom dohvatanja galerije slika.");
-          }
+  function getGalleryImages(postId) {
+    const xhr = new XMLHttpRequest();
+    xhr.open(
+      "GET",
+      `/wp-admin/admin-ajax.php?action=get_gallery_images&post_id=${postId}`,
+      true
+    );
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        if (response.success) {
+          const images = response.data.images;
+          openModal(images);
         } else {
-          reject(`Greška prilikom slanja zahteva: ${xhr.status}`);
+          console.error("Greška prilikom dohvatanja galerije slika.");
         }
-      };
-      xhr.onerror = function () {
-        reject("Network greška prilikom slanja zahteva.");
-      };
-      xhr.send();
-    });
+      }
+    };
+    xhr.send();
   }
 
   // Event listener za otvaranje modala
   document
     .querySelector(".modal-button")
-    .addEventListener("click", async function () {
-      try {
-        const postId = this.getAttribute("data-post-id");
-        const images = await getGalleryImages(postId);
+    .addEventListener("click", function () {
+      const postId = this.getAttribute("data-post-id");
+      // Postavljamo vrednost images unutar callback-a funkcije
+      getGalleryImages(postId, function (data) {
+        images = data;
         openModal(images);
-      } catch (error) {
-        console.error(error);
-        // Ovde možeš postaviti logiku za prikazivanje korisniku da se nešto nije dobro desilo
-      }
+      });
     });
 });
